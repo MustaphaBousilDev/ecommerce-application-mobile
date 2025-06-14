@@ -28,6 +28,7 @@ import com.mustapha.application_android_kotlin.ui.screens.ChatScreen
 import com.mustapha.application_android_kotlin.ui.screens.HomeScreen
 import com.mustapha.application_android_kotlin.ui.screens.ProfileScreen
 import com.mustapha.application_android_kotlin.ui.screens.SearchScreen
+import com.mustapha.application_android_kotlin.ui.screens.SettingScreen
 import com.mustapha.application_android_kotlin.ui.theme.ApplicationandroidkotlinTheme
 
 class MainActivity : ComponentActivity() {
@@ -87,6 +88,7 @@ fun EcommerceApp(){
                 1 -> SearchScreen()
                 2 -> ChatScreen()
                 3 -> ProfileScreen()
+                4 -> SettingScreen()
             }
         }
     }

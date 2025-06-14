@@ -1,11 +1,14 @@
 package com.mustapha.application_android_kotlin.ui.components
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +19,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -51,6 +55,10 @@ object NavigationTabs {
         TabItem(
             title = "Profile",
             icon = Icons.Default.Person
+        ),
+        TabItem(
+            title = "Setting",
+            icon = Icons.Default.Settings
         )
     )
 }
@@ -74,41 +82,46 @@ fun BottomNavigationBar(
         NavigationTabs.tabs.forEachIndexed { index, tab ->
             NavigationBarItem(
                 icon = {
-                    // Badge for notifications (red circle with number)
-                    if(tab.hasNotification && tab.notificationCount > 0){
-                        BadgedBox(
-                            badge = {
-                                Badge(
-                                    containerColor = Color.Red,
-                                    contentColor =  Color.White
-                                ) {
-                                    Text(
-                                        text = tab.notificationCount.toString(),
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                    )
+                    Box(
+                        modifier = Modifier.padding(vertical = 4.dp),
+                        contentAlignment = Alignment.Center
+                    ){
+                        // Badge for notifications (red circle with number)
+                        if(tab.hasNotification && tab.notificationCount > 0){
+                            BadgedBox(
+                                badge = {
+                                    Badge(
+                                        containerColor = Color.Red,
+                                        contentColor =  Color.White
+                                    ) {
+                                        Text(
+                                            text = tab.notificationCount.toString(),
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                        )
+                                    }
                                 }
+                            ) {
+                                Icon(
+                                    imageVector = tab.icon,
+                                    contentDescription = tab.title,
+                                    modifier = Modifier.size(24.dp)
+                                )
                             }
-                        ) {
+                        }
+                        else {
                             Icon(
                                 imageVector = tab.icon,
                                 contentDescription = tab.title,
-                                modifier = Modifier.size(24.dp)
+                                modifier = Modifier.size(28.dp)
                             )
                         }
-                    }
-                    else {
-                        Icon(
-                            imageVector = tab.icon,
-                            contentDescription = tab.title,
-                            modifier = Modifier.size(24.dp)
-                        )
                     }
                 },
                 label = {
                     Text(
                         text = tab.title,
-                        fontSize = 11.sp
+                        fontSize = 13.sp
                     )
                 },
                 selected = selectedTab == index,
@@ -118,8 +131,11 @@ fun BottomNavigationBar(
                     selectedTextColor = MaterialTheme.colorScheme.primary,
                     unselectedIconColor = Color.Gray,
                     unselectedTextColor = Color.Gray,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+
+                ),
+                modifier = Modifier.padding(vertical = 0.dp)
+
             )
         }
     }
