@@ -23,6 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import com.mustapha.application_android_kotlin.ui.components.BottomNavigationBar
+import com.mustapha.application_android_kotlin.ui.screens.ChatScreen
+import com.mustapha.application_android_kotlin.ui.screens.HomeScreen
+import com.mustapha.application_android_kotlin.ui.screens.ProfileScreen
+import com.mustapha.application_android_kotlin.ui.screens.SearchScreen
 import com.mustapha.application_android_kotlin.ui.theme.ApplicationandroidkotlinTheme
 
 class MainActivity : ComponentActivity() {
@@ -66,27 +71,7 @@ fun EcommerceApp(){
     Scaffold (
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            //bottom navigation tabs
-            TabRow(
-                selectedTabIndex = selectedTab,
-                containerColor = Color(0xFF6200EE),
-                contentColor = Color.White
-            ) {
-                tabs.forEachIndexed { index, title ->
-                    Tab(
-                        selected = selectedTab == index,
-                        onClick = { selectedTab = index },
-                        selectedContentColor = Color.White,
-                        unselectedContentColor = Color.White.copy(alpha = 0.7f)
-                    ) {
-                        Text(
-                            text = title,
-                            fontSize = 12.sp,
-                            fontWeight = if (selectedTab == index) FontWeight.Bold else FontWeight.Normal
-                        )
-                    }
-                }
-            }
+            BottomNavigationBar(selectedTab = selectedTab, onTabSelected = { selectedTab = it})
         }
     ){
         innerPadding ->
@@ -99,94 +84,15 @@ fun EcommerceApp(){
         ) {
             when (selectedTab) {
                 0 -> HomeScreen()
-                1 -> CategoriesScreen()
-                2 -> CartScreen()
+                1 -> SearchScreen()
+                2 -> ChatScreen()
                 3 -> ProfileScreen()
             }
         }
     }
 }
 
-@Composable
-fun HomeScreen() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "🏠 Welcome to My Store!",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF6200EE)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Featured Products Coming Soon...",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-    }
-}
-@Composable
-fun CategoriesScreen() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "📂 Product Categories",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF6200EE)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Electronics, Clothing, Books...",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-    }
-}
-@Composable
-fun CartScreen() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "🛒 Shopping Cart",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF6200EE)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Your cart is empty",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-    }
-}
-@Composable
-fun ProfileScreen() {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "👤 User Profile",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color(0xFF6200EE)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "Login or Register",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-    }
-}
+
 
 @Preview(showBackground = true)
 @Composable

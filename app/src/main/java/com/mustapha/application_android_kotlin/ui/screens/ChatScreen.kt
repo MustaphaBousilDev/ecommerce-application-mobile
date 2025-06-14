@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.ai.client.generativeai.Chat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +48,7 @@ fun ChatScreen () {
             }
         ) {
             Icon(
-                imageVector = Icons.Default.Chat,
+                imageVector = Icons.Default.Send,
                 contentDescription = "Chat",
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.primary
