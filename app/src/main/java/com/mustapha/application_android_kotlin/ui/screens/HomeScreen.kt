@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
@@ -19,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mustapha.application_android_kotlin.ui.components.Home.PromoBanner
+import com.mustapha.application_android_kotlin.ui.components.Home.TopHeader
 
 /*
 * 💡 Key Concepts:
@@ -35,35 +39,14 @@ Column = Vertical layout (like a stack)
 fun HomeScreen() {
     //Column = Stacks items vertically (one below another)
     Column  (
-        //horizontalAlignment = Alignment.CenterHorizontally = Center items left-to-right
-        horizontalAlignment = Alignment.CenterHorizontally,
-        //verticalArrangement = Arrangement.Center = Center items top-to-bottom
-        verticalArrangement = Arrangement.Center,
-        //fillMaxSize() = Use entire screen space
-        //padding(16.dp) = Add 16dp space around edges
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+
         //{ = Start of Column content
     ) {
-        Icon(
-            imageVector = Icons.Default.Home,
-            contentDescription = "Home",
-            modifier = Modifier.size(48.dp),
-            //tint = MaterialTheme.colorScheme.primary = Color the icon with app's primary color
-            tint = MaterialTheme.colorScheme.primary
-        )
-        //Spacer = Empty space (like invisible box)
+        TopHeader()
         Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text ="\uD83C\uDFE0 Welcome to My Store!",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text="Features Products Coming Soon...",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
+        PromoBanner()
     }
 }
