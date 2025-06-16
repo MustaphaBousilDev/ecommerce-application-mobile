@@ -31,10 +31,13 @@ import com.mustapha.application_android_kotlin.ui.screens.SearchScreen
 import com.mustapha.application_android_kotlin.ui.screens.SettingScreen
 import com.mustapha.application_android_kotlin.ui.theme.ApplicationandroidkotlinTheme
 
+
 class MainActivity : ComponentActivity() {
     //onCreate: Runs when your app starts (like a "setup function")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         //enableEdgeToEdge(): Makes app use full screen
         enableEdgeToEdge()
         //setContent: Defines what users see on screen
@@ -44,6 +47,8 @@ class MainActivity : ComponentActivity() {
                 EcommerceApp()
             }
         }
+
+
     }
 }
 
