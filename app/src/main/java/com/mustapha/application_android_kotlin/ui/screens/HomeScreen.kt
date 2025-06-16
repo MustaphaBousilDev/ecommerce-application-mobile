@@ -45,8 +45,7 @@ fun HomeScreen() {
 
         //{ = Start of Column content
     ) {
-        TopHeader()
-        Spacer(modifier = Modifier.height(16.dp))
+
         PromoBanner()
     }
 }
