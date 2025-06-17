@@ -1,5 +1,6 @@
 package com.mustapha.application_android_kotlin.ui.components.Home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,65 +29,44 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.painterResource
+import com.mustapha.application_android_kotlin.R
+import androidx.compose.ui.layout.ContentScale
 
 @Composable
 fun PromoBanner(
 
 ){
   Card(
-    modifier = Modifier.fillMaxSize()
-      .height(300.dp),
-    shape = RoundedCornerShape(
-      topStart = 0.dp,
-      topEnd = 0.dp,
-      bottomStart = 24.dp,
-      bottomEnd = 24.dp,
-    ),
+    modifier = Modifier.fillMaxSize().height(300.dp),
+    shape = RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp,bottomStart = 24.dp,bottomEnd = 24.dp),
     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
   ) {
     Box(
-      modifier = Modifier.fillMaxSize()
-        .background(
-          brush = Brush.horizontalGradient(
-            colors = listOf(
-              Color(0xFF424242),
-              Color(0xFF212121)
-            )
-          )
-        )
+      modifier = Modifier.fillMaxSize().background(
+          brush = Brush.horizontalGradient(colors = listOf(Color(0xFF424242), Color(0xFF212121)))
+      )
     ){
       Row(
-        modifier = Modifier
-          .fillMaxSize()
-          .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top
       ) {
-        Row (
-          verticalAlignment = Alignment.CenterVertically
-        ){
+        Row (verticalAlignment = Alignment.CenterVertically){
           Icon(
-            imageVector = Icons.Default.ShoppingCart,
-            contentDescription = "ShopEase Logo",
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
+            imageVector = Icons.Default.ShoppingCart, contentDescription = "ShopEase Logo",
+            tint = Color.White, modifier = Modifier.size(24.dp)
           )
           Spacer(modifier = Modifier.width(8.dp))
-          Text(
-            text="ShopEase",
-            color = Color.White,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-          )
+          Text(text="ShopEase", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
         Row(
-
         ){
           IconButton(onClick = {}) {
             Icon(
@@ -126,56 +106,60 @@ fun PromoBanner(
       Row (
         modifier = Modifier.fillMaxSize()
           .padding(20.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.Bottom
       ){
-        Column(
-          modifier = Modifier.weight(1f),
-          verticalArrangement = Arrangement.Center
-        ) {
-          Text(
-            text="50%",
-            color = Color(0xFFFF6B35),
-            fontSize = 36.sp,
-            fontWeight = FontWeight.Bold
-          )
-          Text(
-            text="OFF",
-            color = Color.White,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium
-          )
-          Spacer(modifier = Modifier.height(12.dp))
-          Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-              containerColor = Color(0xFFFF6B35)
-            ),
-            shape = RoundedCornerShape(20.dp),
+        Box(
+          modifier = Modifier.fillMaxSize()
+        ){
+          Image(
+            painter = painterResource(id = R.drawable.promo),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-              .height(36.dp)
-              .width(100.dp)
-          ) {
+              .height(300.dp)
+              .width(300.dp)
+              .alpha(0.3f)
+          )
+          Column (
+            modifier = Modifier
+              .align(Alignment.BottomStart) // Position it
+              .padding(20.dp),
+            verticalArrangement = Arrangement.Center
+          ){
             Text(
-              text="Shop now",
+              text="50%",
+              color = Color(0xFFFF6B35),
+              fontSize = 36.sp,
+              fontWeight = FontWeight.Bold
+            )
+            Text(
+              text="OFF",
               color = Color.White,
-              fontSize = 12.sp,
+              fontSize = 16.sp,
               fontWeight = FontWeight.Medium
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            Button(
+              onClick = {},
+              colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFFF6B35)
+              ),
+              shape = RoundedCornerShape(20.dp),
+              modifier = Modifier
+                .height(36.dp)
+                .width(100.dp)
+            ) {
+              Text(
+                text="Shop now",
+                color = Color.White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium
+              )
+            }
           }
         }
-        Box (
-          modifier = Modifier.size(120.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.Black.copy(alpha = 0.3f)),
-          contentAlignment = Alignment.Center
-        ){
-          Text(
-            text = "⌚",
-            fontSize = 48.sp,
-            color = Color.White
-          )
-        }
+
 
       }
     }
