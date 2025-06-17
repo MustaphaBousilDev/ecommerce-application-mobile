@@ -127,35 +127,55 @@ fun PromoBanner(
               .padding(20.dp),
             verticalArrangement = Arrangement.Center
           ){
+            Row(
+
+              horizontalArrangement = Arrangement.SpaceEvenly,
+              verticalAlignment = Alignment.CenterVertically
+            ) {
+              Text(
+                text="50%",
+                color = Color(0xFFFF6B35),
+                fontSize = 36.sp,
+                fontWeight = FontWeight.Bold
+              )
+              Spacer(modifier = Modifier.width(12.dp))
+              Text(
+                text="OFF",
+                color = Color.Gray,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+              )
+            }
             Text(
-              text="50%",
-              color = Color(0xFFFF6B35),
-              fontSize = 36.sp,
-              fontWeight = FontWeight.Bold
-            )
-            Text(
-              text="OFF",
+              text="Smart Designs Smart Choices",
               color = Color.White,
               fontSize = 16.sp,
               fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.height(12.dp))
-            Button(
-              onClick = {},
-              colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF6B35)
-              ),
-              shape = RoundedCornerShape(20.dp),
-              modifier = Modifier
-                .height(36.dp)
-                .width(100.dp)
+            Row(
+              modifier = Modifier.width(400.dp).height(40.dp),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.Center
             ) {
-              Text(
-                text="Shop now",
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
-              )
+              Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(
+                  containerColor = Color(0xFFFF6B35)
+                ),
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                  .height(36.dp)
+                  .width(110.dp)
+              ) {
+                Text(
+                  text="Shop now",
+                  color = Color.White,
+                  fontSize = 12.sp,
+                  fontWeight = FontWeight.Bold,
+
+                  )
+              }
             }
           }
         }
