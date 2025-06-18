@@ -1,6 +1,8 @@
 package com.mustapha.application_android_kotlin.ui.components.Home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +31,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,6 +56,7 @@ data class PromoItem(
   val discountColor: Color = Color(0xFFFF6B35)
 )
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PromoBanner() {
   // Sample promo data - you can replace with your own
@@ -163,96 +168,100 @@ fun PromoBanner() {
       }
 
       // Sliding promo content
-      HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize().padding(20.dp),
-      ) { page ->
-        val currentPromo = promoItems[page]
+      CompositionLocalProvider (LocalOverscrollConfiguration provides null) {
+        HorizontalPager(
+          state = pagerState,
+          modifier = Modifier.fillMaxSize().padding(20.dp),
+        ) { page ->
+          val currentPromo = promoItems[page]
 
-        Box(modifier = Modifier.fillMaxSize()) {
-          // Background image
-          Image(
-            painter = painterResource(id = currentPromo.imageRes),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-              .height(300.dp)
-              .width(300.dp)
-              .alpha(0.3f)
-          )
-
-          // Content overlay
-          Column(
-            modifier = Modifier
-              .align(Alignment.BottomStart)
-              .padding(20.dp),
-            verticalArrangement = Arrangement.Center
-          ) {
-            // Discount section
-            Row(
-              horizontalArrangement = Arrangement.SpaceEvenly,
-              verticalAlignment = Alignment.CenterVertically
-            ) {
-              Text(
-                text = currentPromo.discount,
-                color = currentPromo.discountColor,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.Bold
-              )
-              Spacer(modifier = Modifier.width(12.dp))
-              Text(
-                text = "OFF",
-                color = Color.Gray,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-              )
-            }
-
-            // Title
-            Text(
-              text = currentPromo.title,
-              color = Color.White,
-              fontSize = 16.sp,
-              fontWeight = FontWeight.Medium
+          Box(modifier = Modifier.fillMaxSize()) {
+            // Background image
+            Image(
+              painter = painterResource(id = currentPromo.imageRes),
+              contentDescription = null,
+              contentScale = ContentScale.Crop,
+              modifier = Modifier
+                .height(300.dp)
+                .width(300.dp)
+                .alpha(0.3f)
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Button
-            Row(
-              modifier = Modifier.width(400.dp).height(40.dp),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Center
+            // Content overlay
+            Column(
+              modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(20.dp),
+              verticalArrangement = Arrangement.Center
             ) {
-              Button(
-                onClick = {
-                  // Handle button click for each promo
-                  // You can add different actions based on the current page
-                },
-                colors = ButtonDefaults.buttonColors(
-                  containerColor = currentPromo.discountColor
-                ),
-                shape = RoundedCornerShape(20.dp),
-                modifier = Modifier
-                  .height(36.dp)
-                  .width(110.dp)
+              // Discount section
+              Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
               ) {
                 Text(
-                  text = currentPromo.buttonText,
-                  color = Color.White,
-                  fontSize = 12.sp,
-                  fontWeight = FontWeight.Bold,
+                  text = currentPromo.discount,
+                  color = currentPromo.discountColor,
+                  fontSize = 36.sp,
+                  fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                  text = "OFF",
+                  color = Color.Gray,
+                  fontSize = 16.sp,
+                  fontWeight = FontWeight.Bold
+                )
+              }
+
+              // Title
+              Text(
+                text = currentPromo.title,
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+              )
+              Spacer(modifier = Modifier.height(12.dp))
+              // Button
+              Row(
+                modifier = Modifier.width(400.dp).height(40.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+              ) {
+                Button(
+                  onClick = {
+                    // Handle button click for each promo
+                    // You can add different actions based on the current page
+                  },
+                  colors = ButtonDefaults.buttonColors(
+                    containerColor = currentPromo.discountColor
+                  ),
+                  shape = RoundedCornerShape(20.dp),
+                  modifier = Modifier
+                    .height(36.dp)
+                    .width(110.dp)
+                ) {
+                  Text(
+                    text = currentPromo.buttonText,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                  )
+                }
               }
             }
           }
         }
       }
 
+
       // Optional: Add page indicators (dots)
       Row(
         modifier = Modifier
           .align(Alignment.BottomCenter)
           .padding(bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
       ) {
         repeat(promoItems.size) { index ->
           val isSelected = pagerState.currentPage == index
