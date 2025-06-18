@@ -147,7 +147,7 @@ fun PromoBanner(
               )
             }
             Text(
-              text="Smart Designs Smart Choices",
+              text="Smart Fucking Chedked , Smart fucking choices",
               color = Color.White,
               fontSize = 16.sp,
               fontWeight = FontWeight.Medium
