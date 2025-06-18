@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -27,47 +29,109 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.painterResource
-import com.mustapha.application_android_kotlin.R
 import androidx.compose.ui.layout.ContentScale
+import com.mustapha.application_android_kotlin.R
+import kotlinx.coroutines.delay
+
+// Data class for promo items
+data class PromoItem(
+  val discount: String,
+  val title: String,
+  val buttonText: String,
+  val imageRes: Int,
+  val discountColor: Color = Color(0xFFFF6B35)
+)
 
 @Composable
-fun PromoBanner(
+fun PromoBanner() {
+  // Sample promo data - you can replace with your own
+  val promoItems = listOf(
+    PromoItem(
+      discount = "50%",
+      title = "Smart Shopping, Smart Choices",
+      buttonText = "Shop Now",
+      imageRes = R.drawable.promo
+    ),
+    PromoItem(
+      discount = "30%",
+      title = "Best Deals of the Week",
+      buttonText = "Explore",
+      imageRes = R.drawable.promo, // Replace with different images
+      discountColor = Color(0xFF4CAF50)
+    ),
+    PromoItem(
+      discount = "70%",
+      title = "Limited Time Mega Sale",
+      buttonText = "Buy Now",
+      imageRes = R.drawable.promo, // Replace with different images
+      discountColor = Color(0xFF9C27B0)
+    )
+  )
 
-){
+  // Pager state for managing the carousel
+  val pagerState = rememberPagerState(
+    initialPage = 0,
+    pageCount = { promoItems.size }
+  )
+
+  // Auto-scroll effect
+  LaunchedEffect(pagerState) {
+    while (true) {
+      delay(3000) // 3 seconds delay
+      val nextPage = (pagerState.currentPage + 1) % promoItems.size
+      pagerState.animateScrollToPage(nextPage)
+    }
+  }
+
   Card(
     modifier = Modifier.fillMaxSize().height(300.dp),
-    shape = RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp,bottomStart = 24.dp,bottomEnd = 24.dp),
+    shape = RoundedCornerShape(
+      topStart = 0.dp,
+      topEnd = 0.dp,
+      bottomStart = 24.dp,
+      bottomEnd = 24.dp
+    ),
     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
   ) {
     Box(
       modifier = Modifier.fillMaxSize().background(
-          brush = Brush.horizontalGradient(colors = listOf(Color(0xFF424242), Color(0xFF212121)))
+        brush = Brush.horizontalGradient(
+          colors = listOf(Color(0xFF424242), Color(0xFF212121))
+        )
       )
-    ){
+    ) {
+      // Top bar with logo and icons
       Row(
         modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Top
       ) {
-        Row (verticalAlignment = Alignment.CenterVertically){
+        Row(verticalAlignment = Alignment.CenterVertically) {
           Icon(
-            imageVector = Icons.Default.ShoppingCart, contentDescription = "ShopEase Logo",
-            tint = Color.White, modifier = Modifier.size(24.dp)
+            imageVector = Icons.Default.ShoppingCart,
+            contentDescription = "ShopEase Logo",
+            tint = Color.White,
+            modifier = Modifier.size(24.dp)
           )
           Spacer(modifier = Modifier.width(8.dp))
-          Text(text="ShopEase", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+          Text(
+            text = "ShopEase",
+            color = Color.White,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+          )
         }
-        Row(
-        ){
+        Row {
           IconButton(onClick = {}) {
             Icon(
               imageVector = Icons.Default.FavoriteBorder,
@@ -82,16 +146,11 @@ fun PromoBanner(
                 containerColor = Color.Red,
                 contentColor = Color.White
               ) {
-                Text(
-                  text="2",
-                  fontSize = 10.sp
-                )
+                Text(text = "2", fontSize = 10.sp)
               }
             }
           ) {
-            IconButton(
-              onClick = {}
-            ) {
+            IconButton(onClick = {}) {
               Icon(
                 imageVector = Icons.Default.Notifications,
                 contentDescription = "Notifications",
@@ -102,18 +161,16 @@ fun PromoBanner(
           }
         }
       }
-      Spacer(modifier = Modifier.height(16.dp))
-      Row (
-        modifier = Modifier.fillMaxSize()
-          .padding(20.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.Bottom
-      ){
-        Box(
-          modifier = Modifier.fillMaxSize()
-        ){
+
+      // Sliding promo content
+      HorizontalPager(state = pagerState, modifier = Modifier.fillMaxSize().padding(20.dp),
+      ) { page ->
+        val currentPromo = promoItems[page]
+
+        Box(modifier = Modifier.fillMaxSize()) {
+          // Background image
           Image(
-            painter = painterResource(id = R.drawable.promo),
+            painter = painterResource(id = currentPromo.imageRes),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -121,47 +178,57 @@ fun PromoBanner(
               .width(300.dp)
               .alpha(0.3f)
           )
-          Column (
+
+          // Content overlay
+          Column(
             modifier = Modifier
-              .align(Alignment.BottomStart) // Position it
+              .align(Alignment.BottomStart)
               .padding(20.dp),
             verticalArrangement = Arrangement.Center
-          ){
+          ) {
+            // Discount section
             Row(
-
               horizontalArrangement = Arrangement.SpaceEvenly,
               verticalAlignment = Alignment.CenterVertically
             ) {
               Text(
-                text="50%",
-                color = Color(0xFFFF6B35),
+                text = currentPromo.discount,
+                color = currentPromo.discountColor,
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Bold
               )
               Spacer(modifier = Modifier.width(12.dp))
               Text(
-                text="OFF",
+                text = "OFF",
                 color = Color.Gray,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
               )
             }
+
+            // Title
             Text(
-              text="Smart Fucking Chedked , Smart fucking choices",
+              text = currentPromo.title,
               color = Color.White,
               fontSize = 16.sp,
               fontWeight = FontWeight.Medium
             )
+
             Spacer(modifier = Modifier.height(12.dp))
+
+            // Button
             Row(
               modifier = Modifier.width(400.dp).height(40.dp),
               verticalAlignment = Alignment.CenterVertically,
               horizontalArrangement = Arrangement.Center
             ) {
               Button(
-                onClick = {},
+                onClick = {
+                  // Handle button click for each promo
+                  // You can add different actions based on the current page
+                },
                 colors = ButtonDefaults.buttonColors(
-                  containerColor = Color(0xFFFF6B35)
+                  containerColor = currentPromo.discountColor
                 ),
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
@@ -169,18 +236,35 @@ fun PromoBanner(
                   .width(110.dp)
               ) {
                 Text(
-                  text="Shop now",
+                  text = currentPromo.buttonText,
                   color = Color.White,
                   fontSize = 12.sp,
                   fontWeight = FontWeight.Bold,
-
-                  )
+                )
               }
             }
           }
         }
+      }
 
-
+      // Optional: Add page indicators (dots)
+      Row(
+        modifier = Modifier
+          .align(Alignment.BottomCenter)
+          .padding(bottom = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+      ) {
+        repeat(promoItems.size) { index ->
+          val isSelected = pagerState.currentPage == index
+          Box(
+            modifier = Modifier
+              .size(if (isSelected) 12.dp else 8.dp)
+              .background(
+                color = if (isSelected) Color.White else Color.White.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(50)
+              )
+          )
+        }
       }
     }
   }
