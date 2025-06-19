@@ -267,7 +267,9 @@ fun PromoBanner() {
           val isSelected = pagerState.currentPage == index
           Box(
             modifier = Modifier
-              .size(if (isSelected) 12.dp else 8.dp)
+              .width(if (isSelected) 15.dp else 5.dp)
+              .height(5.dp)
+
               .background(
                 color = if (isSelected) Color.White else Color.White.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(50)
