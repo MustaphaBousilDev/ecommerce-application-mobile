@@ -269,7 +269,6 @@ fun PromoBanner() {
             modifier = Modifier
               .width(if (isSelected) 15.dp else 5.dp)
               .height(5.dp)
-
               .background(
                 color = if (isSelected) Color.White else Color.White.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(50)

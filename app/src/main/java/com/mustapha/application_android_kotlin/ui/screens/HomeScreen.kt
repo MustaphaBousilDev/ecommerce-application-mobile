@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mustapha.application_android_kotlin.ui.components.Home.CategoryTabs
 import com.mustapha.application_android_kotlin.ui.components.Home.PromoBanner
 import com.mustapha.application_android_kotlin.ui.components.Home.TopHeader
 
@@ -47,5 +48,6 @@ fun HomeScreen() {
     ) {
 
         PromoBanner()
+        CategoryTabs()
     }
 }
