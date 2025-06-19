@@ -4,27 +4,37 @@ import androidx.compose.foundation.lazy.items
 
 import android.media.Image
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.R
@@ -72,26 +82,58 @@ fun CategoryTabs() {
     )
 
     LazyRow (
-        modifier = Modifier.fillMaxSize().height(60.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(horizontal = 40.dp)
+        modifier = Modifier.fillMaxSize().height(70.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(horizontal = 15.dp),
+
     ){
-        items (categoryItem) {
-                currentCategory -> Box(
-            modifier = Modifier
-                .width(100.dp)
-                .background(Color.Cyan),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = currentCategory.name,
-                fontWeight = FontWeight.Bold,
-                color = Color.DarkGray,
-                fontSize = 16.sp
-            )
-        }
+        items (categoryItem) {currentCategory ->
+            CategoryCard(category = currentCategory)
+
         }
     }
 
 
+}
+
+
+@Composable
+fun CategoryCard(category: CategoryItem){
+    Column(
+
+        modifier = Modifier.width(70.dp)
+    ) {
+        //Circular Image with Border
+        Box(
+            modifier = Modifier.size(70.dp)
+                .clip(CircleShape)
+                .border(
+                    width = 3.dp,
+                    color = Color(0xFF6C3FF),
+                    shape = CircleShape
+                ).background(color = Color.White, // Light background
+                    shape = CircleShape)
+                .padding(5.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = category.logo),
+                contentDescription = category.name,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(CircleShape)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = category.name,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF2D3748), // Dark gray
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+
+            )
+        }
+    }
 }

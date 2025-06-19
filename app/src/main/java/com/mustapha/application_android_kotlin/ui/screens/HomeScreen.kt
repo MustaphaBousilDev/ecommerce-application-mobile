@@ -48,6 +48,7 @@ fun HomeScreen() {
     ) {
 
         PromoBanner()
+        Spacer(modifier = Modifier.height(10.dp))
         CategoryTabs()
     }
 }
