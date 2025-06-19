@@ -1,21 +1,28 @@
 package com.mustapha.application_android_kotlin.ui.components.Home
 
+import androidx.compose.foundation.lazy.items
+
 import android.media.Image
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -64,32 +71,27 @@ fun CategoryTabs() {
         )
     )
 
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = { categoryItem.size}
-    )
-    CompositionLocalProvider(LocalOverscrollConfiguration provides null) {
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier.height(50.dp),
-            pageSpacing = 15.dp,
-            contentPadding = PaddingValues(horizontal = 40.dp)
-
+    LazyRow (
+        modifier = Modifier.fillMaxSize().height(60.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(horizontal = 40.dp)
+    ){
+        items (categoryItem) {
+                currentCategory -> Box(
+            modifier = Modifier
+                .width(100.dp)
+                .background(Color.Cyan),
+            contentAlignment = Alignment.Center
         ) {
-            page ->
-            val currentPromo = categoryItem[page]
-            Box(
-                modifier = Modifier.fillMaxSize()
-                    .background(Color.Cyan),
-                contentAlignment = Alignment.Center
-            ){
-                Text(
-                    text=currentPromo.name,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.DarkGray,
-                    fontSize = 25.sp
-                )
-            }
+            Text(
+                text = currentCategory.name,
+                fontWeight = FontWeight.Bold,
+                color = Color.DarkGray,
+                fontSize = 16.sp
+            )
+        }
         }
     }
+
+
 }
