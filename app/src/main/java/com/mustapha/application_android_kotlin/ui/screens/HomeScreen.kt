@@ -22,10 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.ui.components.Home.CategoryTabs
-import com.mustapha.application_android_kotlin.ui.components.Home.ProductScreenVertical
+import com.mustapha.application_android_kotlin.ui.components.Home.LazySwipeCardsPreview
 import com.mustapha.application_android_kotlin.ui.components.Home.PromoBanner
 import com.mustapha.application_android_kotlin.ui.components.Home.TopHeader
-import com.mustapha.application_android_kotlin.ui.components.Home.VerticalStackedProductCards
 
 /*
 * 💡 Key Concepts:
@@ -52,21 +51,9 @@ fun HomeScreen() {
         PromoBanner()
         Spacer(modifier = Modifier.height(16.dp))
         CategoryTabs()
-        Spacer(modifier = Modifier.height(55.dp))
-        VerticalStackedProductCards(
-            onProductClick = { product ->
-                // Handle product click - you can add navigation later
-                println("Product clicked: ${product.name}")
-            },
-            onBuyNowClick = { product ->
-                // Handle buy now click
-                println("Buy now clicked: ${product.name}")
-            },
-            onAddToCartClick = { product ->
-                // Handle add to cart click
-                println("Add to cart clicked: ${product.name}")
-            }
-        )
         Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+
     }
 }
