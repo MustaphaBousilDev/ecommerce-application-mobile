@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import com.mustapha.application_android_kotlin.R
@@ -97,10 +100,11 @@ fun ProductSwap() {
                             painter = painterResource(id = drawables[index].imageRes),
                             contentDescription = "Same Card Image",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(150.dp).zIndex(0f)
+                            modifier = Modifier.size(130.dp).zIndex(0f)
                         )
                         Column (
-                            Modifier.padding(10.dp)
+                            Modifier.padding(10.dp),
+                            verticalArrangement = Arrangement.spacedBy(5.dp)
                         ){
                             Text(
                                 text = drawables[index].title,
@@ -111,9 +115,31 @@ fun ProductSwap() {
                             Text(
                                 text = drawables[index].price,
                                 color = Color.White,
-                                fontSize = 18.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                             )
+                            Row {
+                                Button(onClick = {  }, colors = ButtonDefaults.buttonColors(containerColor = Color(
+                                    0xFFFF5900
+                                )
+                                )) {
+                                    Text(
+                                        text = "Buy now",
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                }
+                                IconButton(onClick = {}, colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = Color.Black,
+                                )) {
+                                    Icon(
+                                        imageVector = Icons.Filled.ShoppingCart,
+                                        contentDescription = "Shopping Cart",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(32.dp).padding(5.dp)
+                                    )
+                                }
+                            }
+
                         }
                     }
 
