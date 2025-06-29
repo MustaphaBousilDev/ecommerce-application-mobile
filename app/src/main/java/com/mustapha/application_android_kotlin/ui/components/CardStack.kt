@@ -80,6 +80,9 @@ fun cardStack(
 
 
 
+
+
+
     ) {
         (0 until cardCount).forEachIndexed { index, _ ->
             ShowCard(
@@ -165,8 +168,10 @@ private fun ShowCard(coroutineScope: CoroutineScope,
         .padding(paddingModifier)
         .zIndex(-padding.value)
         .offset(){ offsetValues }
+
         .rotate(rotateAnimation.value)
         .clip(RoundedCornerShape(100.dp))
+
         .onSizeChanged() {
             itemPxSize = if (orientation is Orientation.Vertical) {
                 if (itemPxSize > it.width)

@@ -85,8 +85,9 @@ fun ProductSwap() {
     cardStack(
         cardContent = { index ->
             Box(
-                modifier = Modifier.size(width = 380.dp, height = 170.dp)
-                    .padding(10.dp)
+                modifier = Modifier.size(width = 380.dp, height =120.dp)
+
+                    .background(Color(0xFFEFEEEE))
                     .clip(RoundedCornerShape(120.dp)),
                 contentAlignment = Alignment.CenterStart,
 
@@ -96,15 +97,15 @@ fun ProductSwap() {
 
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxSize().padding(20.dp)
+                        verticalAlignment = Alignment.Bottom,
+                        modifier = Modifier.fillMaxSize().padding(0.dp)
                     ) {
 
                         Image(
                             painter = painterResource(id = drawables[index].imageRes),
                             contentDescription = "Same Card Image",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(130.dp).zIndex(0f)
+                            modifier = Modifier.width(100.dp).height(100.dp).zIndex(0f)
                         )
                         Column (
                             Modifier.padding(10.dp),
@@ -112,13 +113,13 @@ fun ProductSwap() {
                         ){
                             Text(
                                 text = drawables[index].title,
-                                color = Color.White,
+                                color = Color.Black,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
                             )
                             Text(
                                 text = drawables[index].price,
-                                color = Color.White,
+                                color = Color.Black,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                             )
