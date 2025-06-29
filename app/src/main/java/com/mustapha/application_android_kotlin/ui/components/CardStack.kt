@@ -8,10 +8,12 @@ import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +26,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.Dp
@@ -70,7 +74,12 @@ fun cardStack(
     val rotationValue = getRotation(orientation)
 
     Box(
-        contentAlignment= contentAlignment
+        contentAlignment= contentAlignment,
+
+
+
+
+
     ) {
         (0 until cardCount).forEachIndexed { index, _ ->
             ShowCard(
@@ -157,6 +166,7 @@ private fun ShowCard(coroutineScope: CoroutineScope,
         .zIndex(-padding.value)
         .offset(){ offsetValues }
         .rotate(rotateAnimation.value)
+        .clip(RoundedCornerShape(100.dp))
         .onSizeChanged() {
             itemPxSize = if (orientation is Orientation.Vertical) {
                 if (itemPxSize > it.width)

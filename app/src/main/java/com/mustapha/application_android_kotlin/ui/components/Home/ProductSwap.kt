@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import com.mustapha.application_android_kotlin.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
@@ -84,9 +85,12 @@ fun ProductSwap() {
     cardStack(
         cardContent = { index ->
             Box(
-                modifier = Modifier.size(width = 370.dp, height = 200.dp)
-                    .padding(10.dp),
+                modifier = Modifier.size(width = 380.dp, height = 170.dp)
+                    .padding(10.dp)
+                    .clip(RoundedCornerShape(120.dp)),
                 contentAlignment = Alignment.CenterStart,
+
+
 
             ) {
 
@@ -118,7 +122,9 @@ fun ProductSwap() {
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                             )
-                            Row {
+                            Row (
+                                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            ){
                                 Button(onClick = {  }, colors = ButtonDefaults.buttonColors(containerColor = Color(
                                     0xFFFF5900
                                 )
