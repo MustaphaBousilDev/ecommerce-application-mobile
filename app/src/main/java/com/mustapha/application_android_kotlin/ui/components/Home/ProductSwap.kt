@@ -45,12 +45,27 @@ fun ProductSwap() {
     )
     cardStack(
         cardContent = { index ->
-            Image(
-                painter = painterResource(id = drawables[index]),
-                contentDescription = "Same Card Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(250.dp)
-            )
+            Box(
+                modifier = Modifier.size(width = 370.dp, height = 200.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Card(
+
+                ) {
+                    Text(
+                        text = "ShopEase",
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Image(
+                        painter = painterResource(id = drawables[index]),
+                        contentDescription = "Same Card Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(300.dp)
+                    )
+                }
+            }
         },
         cardCount = drawables.size
     )

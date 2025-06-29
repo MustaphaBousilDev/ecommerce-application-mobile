@@ -43,8 +43,8 @@ fun HomeScreen() {
     Column  (
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
         //{ = Start of Column content
     ) {
 
