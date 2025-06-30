@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.ui.components.Home.CategoryTabs
+import com.mustapha.application_android_kotlin.ui.components.Home.OfferCard
 import com.mustapha.application_android_kotlin.ui.components.Home.PromoBanner
 import com.mustapha.application_android_kotlin.ui.components.Home.ProductSwap
 import com.mustapha.application_android_kotlin.ui.components.Home.TopHeader
@@ -53,6 +54,8 @@ fun HomeScreen() {
         CategoryTabs()
         Spacer(modifier = Modifier.height(16.dp))
         ProductSwap()
+        Spacer(modifier = Modifier.height(16.dp))
+        OfferCard()
 
 
 
