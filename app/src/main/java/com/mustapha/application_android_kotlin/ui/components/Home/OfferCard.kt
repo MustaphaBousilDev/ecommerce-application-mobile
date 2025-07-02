@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.R
 import com.mustapha.application_android_kotlin.ui.theme.poppinsFontFamily
+import com.mustapha.application_android_kotlin.ui.theme.poppinsFontFamilyText
 
 
 @Composable
@@ -37,16 +38,23 @@ fun OfferCard(){
         Column (
            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+
+
         ){
             Text(
                 text = "SALE: EXTRA 20% OFF",
                 fontSize = 19.sp,
                 fontWeight = FontWeight.ExtraBold,
-                fontFamily = poppinsFontFamily
+                fontFamily = poppinsFontFamily,
+                color = Color(0xFFFF5900)
             )
             Text(
-                text = "erer"
+                text = "With Code: 'SALELOVE'",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = poppinsFontFamilyText,
+                color = Color(0xFF0446CE)
             )
         }
     }
