@@ -23,22 +23,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.R
+import com.mustapha.application_android_kotlin.ui.components.GradientBackgroundBrush
 import com.mustapha.application_android_kotlin.ui.theme.poppinsFontFamily
 import com.mustapha.application_android_kotlin.ui.theme.poppinsFontFamilyText
 
 
 @Composable
 fun OfferCard(){
-
+    val gradientColors = listOf(
+        Color(0xFFFFD768),
+        Color(0xFFFDE683),
+        Color(0xFFFFE8B3),
+        Color(0xFFFFF5A7),
+        Color(0xFFFFF2A4),
+    )
     Card(
         modifier = Modifier.fillMaxSize(0.9f)
             .height(100.dp)
             .clip(RoundedCornerShape(2.dp))
+
     ) {
         Column (
            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .background(brush = GradientBackgroundBrush(
+                    isVerticalGradient = false,
+                    colors =gradientColors
+                )),
+
 
 
         ){
@@ -54,7 +67,7 @@ fun OfferCard(){
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = poppinsFontFamilyText,
-                color = Color(0xFF0446CE)
+                color = Color(0xFF011134)
             )
         }
     }
