@@ -15,25 +15,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import coil.compose.AsyncImage
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mustapha.application_android_kotlin.R
 
 data class SimplePromoItem(
     val discount: String,
     val title: String,
-    val color: Color = Color(0xFFFF6B35)
+    val color: Color = Color(0xFFFF6B35),
+    val image: Int,
 )
 
 @Composable
 fun CategoryOfferLazy() {
     val promoItems = listOf(
-        SimplePromoItem("50%", "Smart Shopping", Color(0xFFFF6B35)),
-        SimplePromoItem("30%", "Best Deals", Color(0xFF4CAF50)),
-        SimplePromoItem("70%", "Mega Sale", Color(0xFF9C27B0)),
-        SimplePromoItem("40%", "Flash Sale", Color(0xFFE91E63)),
-        SimplePromoItem("60%", "Weekend Special", Color(0xFF673AB7))
+        SimplePromoItem("50%", "Smart Shopping", Color(0xFFFF6B35),  R.drawable.swipe1),
+        SimplePromoItem("30%", "Best Deals", Color(0xFF4CAF50), R.drawable.swipe2),
+        SimplePromoItem("70%", "Mega Sale", Color(0xFF9C27B0), R.drawable.swipe3),
+        SimplePromoItem("40%", "Flash Sale", Color(0xFFE91E63), R.drawable.swipe4),
+        SimplePromoItem("60%", "Weekend Special", Color(0xFF673AB7), R.drawable.swipe5)
     )
 
     // Calculate height: (item height + spacing) * number of items + padding
@@ -60,7 +64,7 @@ fun SimplePromoCard(item: SimplePromoItem) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp),
+            .height(150.dp),
         shape = RoundedCornerShape(30.dp)
     ) {
         Box(
@@ -69,6 +73,12 @@ fun SimplePromoCard(item: SimplePromoItem) {
                 .background(item.color),
             contentAlignment = Alignment.Center
         ) {
+            AsyncImage(
+                model = item.image,
+                contentDescription = item.title,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
             Text(
                 text = "${item.discount} OFF\n${item.title}",
                 color = Color.White,
