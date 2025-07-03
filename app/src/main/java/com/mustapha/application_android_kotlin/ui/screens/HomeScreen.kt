@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mustapha.application_android_kotlin.ui.components.Home.CategoryOfferLazy
 import com.mustapha.application_android_kotlin.ui.components.Home.CategoryTabs
 import com.mustapha.application_android_kotlin.ui.components.Home.OfferCard
 import com.mustapha.application_android_kotlin.ui.components.Home.PromoBanner
@@ -50,14 +51,14 @@ fun HomeScreen() {
     ) {
 
         PromoBanner()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         CategoryTabs()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         ProductSwap()
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         OfferCard()
-
-
+        Spacer(modifier = Modifier.height(12.dp))
+        CategoryOfferLazy()
 
     }
 }

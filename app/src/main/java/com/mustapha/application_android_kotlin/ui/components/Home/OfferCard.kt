@@ -60,7 +60,7 @@ fun OfferCard(){
                 fontSize = 19.sp,
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = poppinsFontFamily,
-                color = Color(0xFFFF5900)
+                color = Color(0xFFFF8B47)
             )
             Text(
                 text = "With Code: 'SALELOVE'",
