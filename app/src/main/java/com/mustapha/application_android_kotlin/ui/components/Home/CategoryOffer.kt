@@ -1,5 +1,9 @@
 package com.mustapha.application_android_kotlin.ui.components.Home
 
+
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,8 +17,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import coil.compose.AsyncImage
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -22,23 +32,60 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.R
+import kotlinx.coroutines.delay
 
 data class SimplePromoItem(
     val discount: String,
     val title: String,
     val color: Color = Color(0xFFFF6B35),
-    val image: Int,
+    val images: List<Int>,
 )
 
 @Composable
 fun CategoryOfferLazy() {
     val promoItems = listOf(
-        SimplePromoItem("50%", "Smart Shopping", Color(0xFFFF6B35),  R.drawable.swipe1),
-        SimplePromoItem("30%", "Best Deals", Color(0xFF4CAF50), R.drawable.swipe2),
-        SimplePromoItem("70%", "Mega Sale", Color(0xFF9C27B0), R.drawable.swipe3),
-        SimplePromoItem("40%", "Flash Sale", Color(0xFFE91E63), R.drawable.swipe4),
-        SimplePromoItem("60%", "Weekend Special", Color(0xFF673AB7), R.drawable.swipe5)
+        SimplePromoItem(
+            "50%",
+            "Smart Shopping",
+            Color(0xFFFF6B35),
+            listOf(
+                R.drawable.swipe1,
+                R.drawable.swipe2,
+                R.drawable.swipe3,
+                R.drawable.swipe4,
+                R.drawable.swipe5,
+                R.drawable.swipe6
+            ),
+            ),
+        SimplePromoItem(
+            "50%",
+            "Smart Shopping",
+            Color(0xFFFF6B35),
+            listOf(
+                R.drawable.swipe1,
+                R.drawable.swipe2,
+                R.drawable.swipe3,
+                R.drawable.swipe4,
+                R.drawable.swipe5,
+                R.drawable.swipe6
+            ),
+        ),
+        SimplePromoItem(
+            "50%",
+            "Smart Shopping",
+            Color(0xFFFF6B35),
+            listOf(
+                R.drawable.swipe1,
+                R.drawable.swipe2,
+                R.drawable.swipe3,
+                R.drawable.swipe4,
+                R.drawable.swipe5,
+                R.drawable.swipe6
+            ),
+        ),
     )
+
+
 
     // Calculate height: (item height + spacing) * number of items + padding
     val itemHeight = 180.dp
@@ -54,13 +101,40 @@ fun CategoryOfferLazy() {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(promoItems) { item ->
-            SimplePromoCard(item)
+            AnimatedPromoCard(item)
         }
     }
 }
 
+
+
 @Composable
-fun SimplePromoCard(item: SimplePromoItem) {
+fun AnimatedPromoCard(item: SimplePromoItem) {
+    var currentImageIndex by remember { mutableStateOf(0) }
+    var isTransitioning by remember { mutableStateOf(false) }
+
+    // Animation for opacity
+    val alpha by animateFloatAsState(
+        targetValue = if (isTransitioning) 0f else 1f,
+        animationSpec = tween(
+            durationMillis = 10, // 500ms fade duration
+            easing = FastOutSlowInEasing
+        ),
+        finishedListener = {
+            if (isTransitioning) {
+                // Change image when fade out completes
+                currentImageIndex = (currentImageIndex + 1) % item.images.size
+                isTransitioning = false
+            }
+        }
+    )
+
+    // Timer effect for changing images every 3 seconds
+    LaunchedEffect(currentImageIndex) {
+        delay(3000) // Wait 3 seconds
+        isTransitioning = true // Start fade out
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -68,23 +142,39 @@ fun SimplePromoCard(item: SimplePromoItem) {
         shape = RoundedCornerShape(30.dp)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(item.color),
-            contentAlignment = Alignment.Center
+            modifier = Modifier.fillMaxSize()
         ) {
+            // Background color (visible during transitions)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(item.color)
+            )
+
+            // Animated image
             AsyncImage(
-                model = item.image,
+                model = item.images[currentImageIndex],
                 contentDescription = item.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .alpha(alpha)
             )
-            Text(
-                text = "${item.discount} OFF\n${item.title}",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
+
+            // Overlay with text
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f)), // Dark overlay for text readability
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "${item.discount} OFF\n${item.title}",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
