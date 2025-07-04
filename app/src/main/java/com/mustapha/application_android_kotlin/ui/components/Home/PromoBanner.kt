@@ -64,8 +64,8 @@ fun PromoBanner() {
   val promoItems = listOf(
     PromoItem(
       discount = "50%",
-      title = "Smart Shopping, Smart Choices",
-      buttonText = "Shop Now",
+      title = "Smart Shopping",
+      buttonText = "Shop",
       imageRes = R.drawable.ee,
       widthImg= 300
     ),

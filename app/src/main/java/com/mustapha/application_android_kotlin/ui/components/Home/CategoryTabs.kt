@@ -53,31 +53,36 @@ fun CategoryTabs() {
         CategoryItem(
             id=1,
             name="technologies",
-            logo = R.drawable.promo
+            logo = R.drawable.cat1
         ),
         CategoryItem(
             id=2,
             name="clothes",
-            logo = R.drawable.promo
+            logo = R.drawable.cat2
         ),
         CategoryItem(
             id=3,
             name="house",
-            logo = R.drawable.promo
+            logo = R.drawable.cat3
         ),
         CategoryItem(
             id=4,
             name="baby",
-            logo = R.drawable.promo
+            logo = R.drawable.cat4
         ),CategoryItem(
             id=5,
             name="sports",
-            logo = R.drawable.promo
+            logo = R.drawable.cat5
         ),
         CategoryItem(
             id=6,
             name="games",
-            logo = R.drawable.promo
+            logo = R.drawable.cat6
+        ),
+        CategoryItem(
+            id=6,
+            name="games",
+            logo = R.drawable.cat7
         )
     )
 
