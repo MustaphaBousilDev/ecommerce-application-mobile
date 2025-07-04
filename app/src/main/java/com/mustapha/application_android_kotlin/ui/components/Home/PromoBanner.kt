@@ -53,7 +53,8 @@ data class PromoItem(
   val title: String,
   val buttonText: String,
   val imageRes: Int,
-  val discountColor: Color = Color(0xFFFF6B35)
+  val discountColor: Color = Color(0xFFFF6B35),
+  val widthImg: Int,
 )
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -65,22 +66,35 @@ fun PromoBanner() {
       discount = "50%",
       title = "Smart Shopping, Smart Choices",
       buttonText = "Shop Now",
-      imageRes = R.drawable.promo
+      imageRes = R.drawable.ee,
+      widthImg= 300
     ),
     PromoItem(
       discount = "30%",
       title = "Best Deals of the Week",
       buttonText = "Explore",
-      imageRes = R.drawable.promo, // Replace with different images
-      discountColor = Color(0xFF4CAF50)
+      imageRes = R.drawable.ee2, // Replace with different images
+      discountColor = Color(0xFF4CAF50),
+      widthImg= 280
     ),
     PromoItem(
       discount = "70%",
       title = "Limited Time Mega Sale",
       buttonText = "Buy Now",
-      imageRes = R.drawable.promo, // Replace with different images
-      discountColor = Color(0xFF9C27B0)
-    )
+      imageRes = R.drawable.ee3, // Replace with different images
+      discountColor = Color(0xFF9C27B0),
+      widthImg= 280
+
+    ),
+    PromoItem(
+      discount = "70%",
+      title = "Limited Time Mega Sale",
+      buttonText = "Buy Now",
+      imageRes = R.drawable.ee4, // Replace with different images
+      discountColor = Color(0xFF9C27B0),
+      widthImg= 320
+    ),
+
   )
 
   // Pager state for managing the carousel
@@ -183,7 +197,7 @@ fun PromoBanner() {
               contentScale = ContentScale.Crop,
               modifier = Modifier
                 .height(300.dp)
-                .width(300.dp)
+                .width(currentPromo.widthImg.dp)
                 .alpha(0.3f)
             )
 
