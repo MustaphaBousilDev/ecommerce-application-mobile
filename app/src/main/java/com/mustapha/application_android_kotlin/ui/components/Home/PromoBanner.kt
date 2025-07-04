@@ -117,8 +117,8 @@ fun PromoBanner() {
     shape = RoundedCornerShape(
       topStart = 0.dp,
       topEnd = 0.dp,
-      bottomStart = 24.dp,
-      bottomEnd = 24.dp
+      bottomStart = 50.dp,
+      bottomEnd = 50.dp
     ),
     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
   ) {
