@@ -55,23 +55,30 @@ fun ProductSwap() {
         ProductOffer(
             title="AirFlex Pro Runner",
             category = "Sports",
-            imageRes = R.drawable.promo,
+            imageRes = R.drawable.ee2,
             colorCard = Color.Red,
             price = "Starting at \$126.6"
         ),
         ProductOffer(
             title="AirFlex Pro Runner",
             category = "Clothes",
-            imageRes = R.drawable.promo,
+            imageRes = R.drawable.ee3,
             colorCard = Color.Blue,
             price = "Starting at \$62.3"
         ),
         ProductOffer(
             title="AirFlex Pro Runner",
             category = "Watch",
-            imageRes = R.drawable.promo,
+            imageRes = R.drawable.ee4,
             colorCard = Color.Yellow,
             price = "Starting at \$62.9"
+        ),
+        ProductOffer(
+            title="AirFlex Pro Runner",
+            category = "MacBook M5",
+            imageRes = R.drawable.ee,
+            colorCard = Color.Green,
+            price = "Starting at \$64.8"
         ),
         ProductOffer(
             title="AirFlex Pro Runner",
