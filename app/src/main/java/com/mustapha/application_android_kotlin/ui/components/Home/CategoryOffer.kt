@@ -131,7 +131,7 @@ fun AnimatedPromoCard(item: SimplePromoItem) {
 
     // Timer effect for changing images every 3 seconds
     LaunchedEffect(currentImageIndex) {
-        delay(3000) // Wait 3 seconds
+        delay(2000) // Wait 3 seconds
         isTransitioning = true // Start fade out
     }
 
@@ -145,11 +145,7 @@ fun AnimatedPromoCard(item: SimplePromoItem) {
             modifier = Modifier.fillMaxSize()
         ) {
             // Background color (visible during transitions)
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(item.color)
-            )
+
 
             // Animated image
             AsyncImage(
@@ -162,19 +158,7 @@ fun AnimatedPromoCard(item: SimplePromoItem) {
             )
 
             // Overlay with text
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.3f)), // Dark overlay for text readability
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "${item.discount} OFF\n${item.title}",
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+
         }
     }
 }

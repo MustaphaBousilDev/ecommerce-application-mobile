@@ -52,36 +52,36 @@ fun CategoryTabs() {
     val categoryItem = listOf(
         CategoryItem(
             id=1,
-            name="technologies",
+            name="",
             logo = R.drawable.cat1
         ),
         CategoryItem(
             id=2,
-            name="clothes",
+            name="",
             logo = R.drawable.cat2
         ),
         CategoryItem(
             id=3,
-            name="house",
+            name="",
             logo = R.drawable.cat3
         ),
         CategoryItem(
             id=4,
-            name="baby",
+            name="",
             logo = R.drawable.cat4
         ),CategoryItem(
             id=5,
-            name="sports",
+            name="",
             logo = R.drawable.cat5
         ),
         CategoryItem(
             id=6,
-            name="games",
+            name="",
             logo = R.drawable.cat6
         ),
         CategoryItem(
             id=6,
-            name="games",
+            name="",
             logo = R.drawable.cat7
         )
     )
