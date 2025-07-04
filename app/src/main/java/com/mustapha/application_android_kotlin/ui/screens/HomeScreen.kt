@@ -2,11 +2,13 @@ package com.mustapha.application_android_kotlin.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -42,23 +44,31 @@ Column = Vertical layout (like a stack)
 @Composable
 fun HomeScreen() {
     //Column = Stacks items vertically (one below another)
-    Column  (
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-        //{ = Start of Column content
-    ) {
+    LazyColumn (
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        contentPadding = PaddingValues(vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ){
+        //each item is lazy-loaded and only composed when visible
+        item(key="promo_banner") {
+            PromoBanner()
+        }
+        item(key = "category_tabs") {
+            CategoryTabs()
+        }
 
-        PromoBanner()
-        Spacer(modifier = Modifier.height(12.dp))
-        CategoryTabs()
-        Spacer(modifier = Modifier.height(12.dp))
-        ProductSwap()
-        Spacer(modifier = Modifier.height(12.dp))
-        OfferCard()
-        Spacer(modifier = Modifier.height(12.dp))
-        CategoryOfferLazy()
+        item(key = "product_swap") {
+            ProductSwap()
+        }
 
+        item(key = "offer_card") {
+            OfferCard()
+        }
+
+        item(key = "category_offers") {
+            CategoryOfferLazy()
+        }
     }
+
 }
