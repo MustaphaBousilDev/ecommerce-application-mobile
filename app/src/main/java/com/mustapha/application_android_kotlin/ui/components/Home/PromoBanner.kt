@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,8 +33,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -48,7 +51,9 @@ import com.mustapha.application_android_kotlin.R
 import kotlinx.coroutines.delay
 
 // Data class for promo items
+@Immutable
 data class PromoItem(
+  val id: String,
   val discount: String,
   val title: String,
   val buttonText: String,
@@ -57,45 +62,66 @@ data class PromoItem(
   val widthImg: Int,
 )
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun PromoBanner() {
-  // Sample promo data - you can replace with your own
+//✅ OPTIMIZATION 2: Create constants to avoid recreation
+private object PromoBannerConstants {
+  val cardShape = RoundedCornerShape(
+    topStart = 0.dp,
+    topEnd = 0.dp,
+    bottomEnd = 70.dp,
+    bottomStart = 70.dp
+  )
+  val backgroundGradient = Brush.horizontalGradient(
+    colors = listOf(Color(0xFF424242), Color(0xFF212121))
+  )
+  const val  AUTO_SCROLL_DELAY = 3000L;
   val promoItems = listOf(
     PromoItem(
+      id = "promo_1",
       discount = "50%",
       title = "Smart Shopping",
       buttonText = "Shop",
       imageRes = R.drawable.ee,
-      widthImg= 300
+      widthImg = 300
     ),
     PromoItem(
+      id = "promo_2",
       discount = "30%",
       title = "Best Deals of the Week",
       buttonText = "Explore",
-      imageRes = R.drawable.ee2, // Replace with different images
+      imageRes = R.drawable.ee2,
       discountColor = Color(0xFF4CAF50),
-      widthImg= 280
+      widthImg = 280
     ),
     PromoItem(
+      id = "promo_3",
       discount = "70%",
       title = "Limited Time Mega Sale",
       buttonText = "Buy Now",
-      imageRes = R.drawable.ee3, // Replace with different images
+      imageRes = R.drawable.ee3,
       discountColor = Color(0xFF9C27B0),
-      widthImg= 280
-
+      widthImg = 280
     ),
     PromoItem(
+      id = "promo_4",
       discount = "70%",
       title = "Limited Time Mega Sale",
       buttonText = "Buy Now",
-      imageRes = R.drawable.ee4, // Replace with different images
+      imageRes = R.drawable.ee4,
       discountColor = Color(0xFF9C27B0),
-      widthImg= 320
-    ),
-
+      widthImg = 320
+    )
   )
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun PromoBanner(
+  promoItems: List<PromoItem> = PromoBannerConstants.promoItems,
+  onPromoClick: (PromoItem) -> Unit = {},
+  onFavoriteClick: () -> Unit = {},
+  onNotificationClick: () -> Unit = {},
+  autoScrolledEnabled: Boolean = true,
+) {
 
   // Pager state for managing the carousel
   val pagerState = rememberPagerState(
@@ -104,82 +130,33 @@ fun PromoBanner() {
   )
 
   // Auto-scroll effect
-  LaunchedEffect(pagerState) {
-    while (true) {
-      delay(3000) // 3 seconds delay
-      val nextPage = (pagerState.currentPage + 1) % promoItems.size
-      pagerState.animateScrollToPage(nextPage)
+  LaunchedEffect(pagerState, autoScrolledEnabled, promoItems.size) {
+    if (autoScrolledEnabled && promoItems.size > 1) {
+      while (true) {
+        delay(2000)
+        val nextPage = (pagerState.currentPage + 1) % promoItems.size
+        pagerState.animateScrollToPage(nextPage)
+      }
     }
+  }
+  val cardModifier = remember {
+    Modifier.fillMaxWidth().height(300.dp)
   }
 
   Card(
-    modifier = Modifier.fillMaxSize().height(300.dp),
-    shape = RoundedCornerShape(
-      topStart = 0.dp,
-      topEnd = 0.dp,
-      bottomStart = 70.dp,
-      bottomEnd = 70.dp
-    ),
+    modifier = cardModifier,
+    shape = PromoBannerConstants.cardShape,
     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
   ) {
     Box(
       modifier = Modifier.fillMaxSize().background(
-        brush = Brush.horizontalGradient(
-          colors = listOf(Color(0xFF424242), Color(0xFF212121))
-        )
+        brush = PromoBannerConstants.backgroundGradient
       )
     ) {
-      // Top bar with logo and icons
-      Row(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.Top
-      ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Icon(
-            imageVector = Icons.Default.ShoppingCart,
-            contentDescription = "ShopEase Logo",
-            tint = Color.White,
-            modifier = Modifier.size(24.dp)
-          )
-          Spacer(modifier = Modifier.width(8.dp))
-          Text(
-            text = "ShopEase",
-            color = Color.White,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-          )
-        }
-        Row {
-          IconButton(onClick = {}) {
-            Icon(
-              imageVector = Icons.Default.FavoriteBorder,
-              contentDescription = "Favorites",
-              tint = Color.White,
-              modifier = Modifier.size(24.dp)
-            )
-          }
-          BadgedBox(
-            badge = {
-              Badge(
-                containerColor = Color.Red,
-                contentColor = Color.White
-              ) {
-                Text(text = "2", fontSize = 10.sp)
-              }
-            }
-          ) {
-            IconButton(onClick = {}) {
-              Icon(
-                imageVector = Icons.Default.Notifications,
-                contentDescription = "Notifications",
-                tint = Color.White,
-                modifier = Modifier.size(24.dp)
-              )
-            }
-          }
-        }
-      }
+      PromoHeader(
+        onFavoriteClick = onFavoriteClick,
+        onNotificationClick = onNotificationClick
+      )
 
       // Sliding promo content
       CompositionLocalProvider (LocalOverscrollConfiguration provides null) {
@@ -291,5 +268,64 @@ fun PromoBanner() {
         }
       }
     }
+  }
+}
+
+
+
+@Composable
+private fun PromoHeader(
+  onFavoriteClick: () -> Unit,
+  onNotificationClick: () -> Unit
+) {
+  Row(
+    modifier = Modifier.fillMaxWidth().padding(16.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.Top
+  ){
+     Row (verticalAlignment = Alignment.CenterVertically){
+       Icon(
+         imageVector = Icons.Default.ShoppingCart,
+         contentDescription = "ShopeEase Logo",
+         tint = Color.White,
+         modifier = Modifier.size(24.dp)
+       )
+       Spacer(modifier = Modifier.width(8.dp))
+       Text(
+         text="ShopEase",
+         color  =Color.White,
+         fontSize = 20.sp,
+         fontWeight = FontWeight.Bold
+       )
+     }
+     Row (verticalAlignment = Alignment.CenterVertically){
+       IconButton(onClick = onFavoriteClick) {
+         Icon(
+           imageVector = Icons.Default.FavoriteBorder,
+           contentDescription = "Favorites",
+           tint = Color.White,
+           modifier = Modifier.size(24.dp)
+         )
+       }
+       BadgedBox(
+         badge = {
+           Badge(
+             containerColor = Color.Red,
+             contentColor = Color.White,
+           ) {
+             Text(text="2", fontSize = 10.sp)
+           }
+         }
+       ) {
+         IconButton(onClick = onNotificationClick) {
+           Icon(
+             imageVector = Icons.Default.Notifications,
+             tint = Color.White,
+             contentDescription = "Notifications",
+             modifier = Modifier.size(24.dp)
+           )
+         }
+       }
+     }
   }
 }
