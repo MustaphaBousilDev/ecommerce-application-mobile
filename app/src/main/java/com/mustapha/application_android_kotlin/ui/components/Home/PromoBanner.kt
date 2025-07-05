@@ -163,110 +163,23 @@ fun PromoBanner(
         HorizontalPager(
           state = pagerState,
           modifier = Modifier.fillMaxSize().padding(20.dp),
+          key = {page -> promoItems[page].id } //stable key for better performance
         ) { page ->
-          val currentPromo = promoItems[page]
-
-          Box(modifier = Modifier.fillMaxSize()) {
-            // Background image
-            Image(
-              painter = painterResource(id = currentPromo.imageRes),
-              contentDescription = null,
-              contentScale = ContentScale.Crop,
-              modifier = Modifier
-                .height(300.dp)
-                .width(currentPromo.widthImg.dp)
-                .alpha(0.3f)
-            )
-
-            // Content overlay
-            Column(
-              modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(20.dp),
-              verticalArrangement = Arrangement.Center
-            ) {
-              // Discount section
-              Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-              ) {
-                Text(
-                  text = currentPromo.discount,
-                  color = currentPromo.discountColor,
-                  fontSize = 36.sp,
-                  fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                  text = "OFF",
-                  color = Color.Gray,
-                  fontSize = 16.sp,
-                  fontWeight = FontWeight.Bold
-                )
-              }
-
-              // Title
-              Text(
-                text = currentPromo.title,
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-              )
-              Spacer(modifier = Modifier.height(12.dp))
-              // Button
-              Row(
-                modifier = Modifier.width(400.dp).height(40.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-              ) {
-                Button(
-                  onClick = {
-                    // Handle button click for each promo
-                    // You can add different actions based on the current page
-                  },
-                  colors = ButtonDefaults.buttonColors(
-                    containerColor = currentPromo.discountColor
-                  ),
-                  shape = RoundedCornerShape(20.dp),
-                  modifier = Modifier
-                    .height(36.dp)
-                    .width(110.dp)
-                ) {
-                  Text(
-                    text = currentPromo.buttonText,
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                  )
-                }
-              }
-            }
-          }
+          PromoPageContent(
+            promo =  promoItems[page],
+            onPromoClick = onPromoClick
+          )
         }
       }
 
 
       // Optional: Add page indicators (dots)
-      Row(
-        modifier = Modifier
-          .align(Alignment.BottomCenter)
-          .padding(bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-        verticalAlignment = Alignment.CenterVertically
-      ) {
-        repeat(promoItems.size) { index ->
-          val isSelected = pagerState.currentPage == index
-          Box(
-            modifier = Modifier
-              .width(if (isSelected) 15.dp else 5.dp)
-              .height(5.dp)
-              .background(
-                color = if (isSelected) Color.White else Color.White.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(50)
-              )
-          )
-        }
-      }
+      PromoPageIndicators(
+        currentPage = pagerState.currentPage,
+        totalPages = promoItems.size,
+        modifier = Modifier.align(Alignment.BottomCenter)
+          .padding(bottom = 16.dp)
+      )
     }
   }
 }
@@ -327,5 +240,126 @@ private fun PromoHeader(
          }
        }
      }
+  }
+}
+
+@Composable
+private fun PromoPageContent(
+  promo: PromoItem,
+  onPromoClick: (PromoItem) -> Unit
+) {
+  Box(modifier = Modifier.fillMaxSize()){
+    // ✅ OPTIMIZATION: optimize image with stable modifier
+    val imageModifier = remember(promo.widthImg) {
+      Modifier.height(300.dp)
+        .width(promo.widthImg.dp)
+        .alpha(0.3f)
+    }
+    Image(
+      painter = painterResource(id = promo.imageRes),
+      contentDescription = "Promo background for ${promo.title}",
+      contentScale = ContentScale.Crop,
+      modifier = imageModifier
+    )
+    Column(
+      modifier = Modifier
+        .align(Alignment.BottomStart)
+        .padding(20.dp),
+      verticalArrangement = Arrangement.Center
+    ) {
+      // Discount section
+      Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        Text(
+          text = promo.discount,
+          color = promo.discountColor,
+          fontSize = 36.sp,
+          fontWeight = FontWeight.Bold
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+          text = "OFF",
+          color = Color.Gray,
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold
+        )
+      }
+
+      // Title
+      Text(
+        text = promo.title,
+        color = Color.White,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium
+      )
+
+      Spacer(modifier = Modifier.height(12.dp))
+
+      // ✅ OPTIMIZATION 12: Stable button with remember
+      PromoButton(
+        text = promo.buttonText,
+        color = promo.discountColor,
+        onClick = { onPromoClick(promo) }
+      )
+    }
+  }
+}
+
+@Composable
+private fun PromoButton(
+  text: String,
+  color: Color,
+  onClick: () -> Unit
+) {
+  val buttonModifier = remember {
+    Modifier
+      .height(36.dp)
+      .width(110.dp)
+  }
+
+  Button(
+    onClick = onClick,
+    colors = ButtonDefaults.buttonColors(containerColor = color),
+    shape = RoundedCornerShape(20.dp),
+    modifier = buttonModifier
+  ) {
+    Text(
+      text = text,
+      color = Color.White,
+      fontSize = 12.sp,
+      fontWeight = FontWeight.Bold,
+    )
+  }
+}
+
+@Composable
+private fun PromoPageIndicators(
+  currentPage: Int,
+  totalPages: Int,
+  modifier: Modifier = Modifier
+) {
+  Row(
+    modifier = modifier,
+    horizontalArrangement = Arrangement.spacedBy(4.dp),
+    verticalAlignment = Alignment.CenterVertically
+  ) {
+    repeat(totalPages) { index ->
+      val isSelected = currentPage == index
+
+      // ✅ Remember indicator modifier for performance
+      val indicatorModifier = remember(isSelected) {
+        Modifier
+          .width(if (isSelected) 15.dp else 5.dp)
+          .height(5.dp)
+          .background(
+            color = if (isSelected) Color.White else Color.White.copy(alpha = 0.5f),
+            shape = RoundedCornerShape(50)
+          )
+      }
+
+      Box(modifier = indicatorModifier)
+    }
   }
 }
