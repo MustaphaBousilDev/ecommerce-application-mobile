@@ -59,24 +59,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // For gesture handling (if not already added)
-    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation(libs.androidx.foundation)
 
 
     // For image loading (optional - for future network images)
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation(libs.coil.compose)
 
     // For coroutines (probably already have this)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation(libs.androidx.navigation.compose)
 
+    implementation (libs.androidx.animation)
 
-
-    implementation ("androidx.compose.ui:ui")
-    implementation ("androidx.compose.ui:ui-graphics")
-    implementation ("androidx.compose.ui:ui-tooling-preview")
-    implementation ("androidx.compose.material3:material3")
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation (libs.ui)
+    implementation (libs.ui.graphics)
+    implementation (libs.ui.tooling.preview)
+    implementation (libs.material3)
+    implementation(libs.coil.compose.v240)
 
 
 

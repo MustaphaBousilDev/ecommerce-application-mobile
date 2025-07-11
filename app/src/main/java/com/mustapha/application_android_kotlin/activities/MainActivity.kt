@@ -29,6 +29,7 @@ import com.mustapha.application_android_kotlin.ui.screens.HomeScreen
 import com.mustapha.application_android_kotlin.ui.screens.ProfileScreen
 import com.mustapha.application_android_kotlin.ui.screens.SearchScreen
 import com.mustapha.application_android_kotlin.ui.screens.SettingScreen
+import com.mustapha.application_android_kotlin.ui.screens.SplashScreen
 import com.mustapha.application_android_kotlin.ui.theme.ApplicationandroidkotlinTheme
 
 
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ApplicationandroidkotlinTheme {
                 //Scaffold like a page template that provides basic screen structure
-                EcommerceApp()
+                AppWithSplash()
             }
         }
 
@@ -109,4 +110,19 @@ fun EcommerceAppPreview() {
     }
 }
 
+
+@Composable
+fun AppWithSplash(){
+    var showSplash by remember { mutableStateOf(true) }
+    if (showSplash) {
+        SplashScreen(
+            onSplashFinished = {
+                showSplash = false
+            }
+        )
+    } else {
+        // Your existing EcommerceApp content
+        EcommerceApp()
+    }
+}
 
