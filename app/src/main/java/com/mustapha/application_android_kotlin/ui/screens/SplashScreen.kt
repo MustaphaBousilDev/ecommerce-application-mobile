@@ -12,6 +12,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,10 +34,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.mustapha.application_android_kotlin.R
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -122,48 +127,28 @@ fun SplashScreen(
             // Logo/Icon placeholder (you can replace with actual logo)
             Box(
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(140.dp)
                     .scale(scaleAnimation)
                     .alpha(alphaAnimation)
                     .rotate(rotationAnimation)
-                    .background(
-                        color = Color.White.copy(alpha = 0.9f),
-                        shape = CircleShape
-                    ),
+                    ,
                 contentAlignment = Alignment.Center
             ) {
                 // You can replace this with your actual logo
-                Text(
-                    text = "🛒",
-                    fontSize = 48.sp,
-                    textAlign = TextAlign.Center
+                Image(
+                    painter = painterResource(id = R.drawable.mugiwara_removebg_preview),
+                    contentDescription = "luffy",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(140.dp)
+                        .clip(CircleShape)
                 )
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+
 
             // Animated text "Muugiwara"
-            Row (
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                text.forEachIndexed { index, char ->
-                    val letterAnimation = if (index < textAnimations.size) {
-                        textAnimations[index].value
-                    } else 0f
-
-                    Text(
-                        text = char.toString(),
-                        fontSize = 42.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        modifier = Modifier
-                            .scale(letterAnimation)
-                            .alpha(letterAnimation),
-                        style = MaterialTheme.typography.headlineLarge
-                    )
-                }
-            }
+            
 
             Spacer(modifier = Modifier.height(16.dp))
 
