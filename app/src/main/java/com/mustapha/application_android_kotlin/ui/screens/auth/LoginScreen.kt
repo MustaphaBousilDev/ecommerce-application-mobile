@@ -23,35 +23,10 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun LoginScreen(onLoginSuccess: () -> Unit = {}){
-    Column (
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize().padding(16.dp)
-    ) {
+fun LoginScreen(
+    onLoginSuccess: () -> Unit = {},
+    onNavigateToRegister: () -> Unit = {},
+    onNavigateToForgotPassword: () -> Unit = {}
+  ){
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text="\uD83D\uDC64 Login Page",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text="Login or Register",
-            fontSize= 16.sp,
-            color = Color.Gray
-        )
-        Button(
-            onClick = {
-                // Your login logic here
-                // Your login logic here
-                // When login is successful:
-                onLoginSuccess() // Call this to switch to main app
-            }
-        ) {
-            Text("Login")
-        }
-    }
 }
