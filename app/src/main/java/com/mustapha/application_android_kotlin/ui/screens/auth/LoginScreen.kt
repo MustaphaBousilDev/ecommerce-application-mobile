@@ -20,6 +20,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mustapha.application_android_kotlin.ui.components.layouts.MugiContainer
+import com.mustapha.application_android_kotlin.ui.components.layouts.MugiScaffold
+import com.mustapha.application_android_kotlin.ui.theme.MugiColors
+import com.mustapha.application_android_kotlin.ui.theme.MugiSpacing
 
 
 @Composable
@@ -28,5 +32,14 @@ fun LoginScreen(
     onNavigateToRegister: () -> Unit = {},
     onNavigateToForgotPassword: () -> Unit = {}
   ){
-
+   MugiScaffold { paddingValues ->
+       MugiContainer(modifier = Modifier.padding(paddingValues)) {
+           Text(
+               text = "SignIn",
+               style = MaterialTheme.typography.headlineMedium,
+               color = MugiColors.Neutral900
+           )
+           Spacer(modifier = Modifier.height(MugiSpacing.xl))
+       }
+   }
 }
