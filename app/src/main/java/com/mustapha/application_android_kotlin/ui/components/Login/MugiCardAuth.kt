@@ -10,7 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mustapha.application_android_kotlin.ui.components.cards.MugiCard
 import com.mustapha.application_android_kotlin.ui.components.cards.MugiCardVariant
 import com.mustapha.application_android_kotlin.ui.theme.MugiColors
@@ -27,8 +31,8 @@ fun MugiAuthCard(
     MugiCard (
         modifier = modifier,
         variant = MugiCardVariant.Elevated,
-        elevation = 8.dp, // Higher elevation for auth
-        shape = RoundedCornerShape(16.dp) // More rounded for modern look
+        elevation = 0.dp, // Higher elevation for auth
+        shape = RoundedCornerShape(35.dp) // More rounded for modern look
     ) {
         // Header section
         if (title.isNotEmpty() || subtitle.isNotEmpty()) {
@@ -37,12 +41,16 @@ fun MugiAuthCard(
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineSmall,
-                        color = MugiColors.Neutral900
+                        color = MugiColors.Neutral900,
+                        textAlign = TextAlign.Center,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold
+
                     )
                 }
 
                 if (subtitle.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(MugiSpacing.xs))
+                    Spacer(modifier = Modifier.height(MugiSpacing.lg))
                     Text(
                         text = subtitle,
                         style = MaterialTheme.typography.bodyMedium,

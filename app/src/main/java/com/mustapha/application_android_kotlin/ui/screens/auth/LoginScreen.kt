@@ -1,5 +1,6 @@
 package com.mustapha.application_android_kotlin.ui.screens.auth
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,15 +40,19 @@ fun LoginScreen(
     var email =""
     var password=""
    MugiScaffold { paddingValues ->
-       MugiContainer(modifier = Modifier.padding(paddingValues)) {
+       MugiContainer(
+           modifier = Modifier.padding(paddingValues).background(Color(0xFFEFEEEE)),
+           verticalAlignment = Arrangement.spacedBy(25.dp)
+       ) {
            Text(
                text = "SignIn",
                style = MaterialTheme.typography.headlineMedium,
-               color = MugiColors.Neutral900
+               color = MugiColors.Neutral900,
+               fontWeight = FontWeight.Bold
            )
            Spacer(modifier = Modifier.height(MugiSpacing.xl))
            MugiAuthCard(
-               title = "Welcome Back",
+               title = "Welcome to Ecommerce Mugiwara",
                subtitle = "Sign in to continue shopping",
                showDivider = true
            ) {

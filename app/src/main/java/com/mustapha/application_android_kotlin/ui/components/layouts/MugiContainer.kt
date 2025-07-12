@@ -1,5 +1,6 @@
 package com.mustapha.application_android_kotlin.ui.components.layouts
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -24,13 +25,15 @@ fun MugiContainer(
     verticalPadding: Dp = MugiSpacing.md,   // 16.dp default
     maxWidth: Dp = 600.dp, // Max width for larger screens (tablets)
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    verticalAlignment: Arrangement.Vertical = Arrangement.spacedBy(40.dp), // default value
     isScrollable: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ){
     val scrollState = rememberScrollState()
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.TopCenter
+
+
     ) {
         Column (
             modifier = Modifier
@@ -48,6 +51,7 @@ fun MugiContainer(
                     }
                 ),
             horizontalAlignment = horizontalAlignment,
+            verticalArrangement = verticalAlignment,
             content = content
         )
     }
