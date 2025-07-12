@@ -30,6 +30,7 @@ import com.mustapha.application_android_kotlin.ui.screens.ProfileScreen
 import com.mustapha.application_android_kotlin.ui.screens.SearchScreen
 import com.mustapha.application_android_kotlin.ui.screens.SettingScreen
 import com.mustapha.application_android_kotlin.ui.screens.SplashScreen
+import com.mustapha.application_android_kotlin.ui.screens.auth.LoginScreen
 import com.mustapha.application_android_kotlin.ui.theme.ApplicationandroidkotlinTheme
 
 
@@ -72,7 +73,7 @@ fun GreetingPreview() {
 @Composable
 fun EcommerceApp(){
     //State to track which tab is selected (starts with tab 0= Home)
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableStateOf(5) }
     var tabs = listOf("Home", "Categories", "Cart", "Profile")
     //Like a "page template" that provides basic screen structure
     Scaffold (
@@ -95,6 +96,8 @@ fun EcommerceApp(){
                 2 -> ChatScreen()
                 3 -> ProfileScreen()
                 4 -> SettingScreen()
+                5 -> LoginScreen()
+
             }
         }
     }

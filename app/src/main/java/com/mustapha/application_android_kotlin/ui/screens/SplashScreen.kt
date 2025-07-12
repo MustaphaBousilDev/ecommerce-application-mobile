@@ -148,7 +148,7 @@ fun SplashScreen(
 
 
             // Animated text "Muugiwara"
-            
+
 
             Spacer(modifier = Modifier.height(16.dp))
 
