@@ -106,7 +106,7 @@ fun SplashScreen(
         }
 
         // Navigate after animation completes
-        delay(3500)
+        delay(3000)
         onSplashFinished()
     }
     Box(

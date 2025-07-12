@@ -54,26 +54,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable //this function creates UI elements
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ApplicationandroidkotlinTheme {
-        Greeting("Android")
-    }
-}
 
 @Composable
 fun EcommerceApp(){
     //State to track which tab is selected (starts with tab 0= Home)
-    var selectedTab by remember { mutableStateOf(5) }
+    var selectedTab by remember { mutableStateOf(0) }
     var tabs = listOf("Home", "Categories", "Cart", "Profile")
     //Like a "page template" that provides basic screen structure
     Scaffold (
@@ -96,8 +82,6 @@ fun EcommerceApp(){
                 2 -> ChatScreen()
                 3 -> ProfileScreen()
                 4 -> SettingScreen()
-                5 -> LoginScreen()
-
             }
         }
     }
@@ -105,27 +89,30 @@ fun EcommerceApp(){
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun EcommerceAppPreview() {
-    ApplicationandroidkotlinTheme {
-        EcommerceApp()
-    }
-}
 
 
 @Composable
 fun AppWithSplash(){
     var showSplash by remember { mutableStateOf(true) }
-    if (showSplash) {
-        SplashScreen(
-            onSplashFinished = {
-                showSplash = false
-            }
-        )
-    } else {
-        // Your existing EcommerceApp content
-        EcommerceApp()
+    var isLoggedIn by remember { mutableStateOf(false) }
+    when {
+        showSplash -> {
+            SplashScreen(
+                onSplashFinished = {
+                    showSplash = false
+                }
+            )
+        }
+        !isLoggedIn -> {
+                LoginScreen(
+                    onLoginSuccess = {
+                        isLoggedIn = true
+                    }
+                )
+        }
+        else -> {
+            EcommerceApp()
+        }
     }
 }
 

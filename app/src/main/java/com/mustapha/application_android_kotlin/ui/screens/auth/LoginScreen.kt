@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(onLoginSuccess: () -> Unit = {}){
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -42,5 +43,15 @@ fun LoginScreen(){
             fontSize= 16.sp,
             color = Color.Gray
         )
+        Button(
+            onClick = {
+                // Your login logic here
+                // Your login logic here
+                // When login is successful:
+                onLoginSuccess() // Call this to switch to main app
+            }
+        ) {
+            Text("Login")
+        }
     }
 }
